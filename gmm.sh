@@ -9,15 +9,15 @@
 # {{{ Colored output
 
 # ANSI escape sequences for pretty colors
-black='\E[30m'
-red='\E[31m'
-green='\E[32m'
-yellow='\E[33m'
-blue='\E[34m'
-magenta='\E[35m'
-cyan='\E[36m'
-white='\E[37m'
-reset='\E[0m'
+black='\e[1;30m'
+red='\e[1;31m'
+green='\e[1;32m'
+yellow='\e[1;33m'
+blue='\e[1;34m'
+magenta='\e[1;35m'
+cyan='\e[1;36m'
+white='\e[1;37m'
+reset='\e[1;0m'
 
 # Color echo
 # $1 = color
@@ -25,9 +25,9 @@ reset='\E[0m'
 cecho()
 {
 	color=${1:-""} # Default to no color, if not specified.
-	echo -en "${color}"
-	echo -n "${2}"
-	echo -e "${reset}"
+	printf "${color}"
+	echo "${2}"
+	printf "${reset}"
 }
 # }}}
 
