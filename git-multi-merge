@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Git Multi Merge (gmm) - Easily merge one git branch into one or more other branches
+# Git Multi Merge - Easily merge one git branch into one or more other branches
 # Author: Nick Groenen
 # Email: zoni@zoni.nl
 # License: Public domain
@@ -38,7 +38,7 @@ cecho()
 # {{{ Argument parsing 
 
 # Defaults and such
-PROGRAM_NAME="gmm"
+PROGRAM_NAME="git-multi-merge"
 FETCH=0
 MERGE_ORIGIN=0
 COLOR=1
@@ -80,7 +80,7 @@ done
 if [ $# -lt 2 ]
 then
 	cecho ${red} "Error: Insufficient arguments"
-	echo "Usage: gmm sourcebranch targetbranch1 targetbranch2 targetbranchN"
+	echo "Usage: ${PROGRAM_NAME} sourcebranch targetbranch1 targetbranch2 targetbranchN"
 	exit 1
 fi
 
