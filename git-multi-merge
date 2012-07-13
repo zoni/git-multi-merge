@@ -23,14 +23,19 @@ reset='\e[1;0m'
 # $2 = message
 cecho()
 {
-	if [ $COLOR -eq 0 ]
-	then
-		echo "${2}"
+	if [ -t 1 ]
+	then # Output is going to an interactive terminal, we can do colors
+		if [ $COLOR -eq 0 ]
+		then
+			echo "${2}"
+		else
+			color=${1:-""} # Default to no color, if not specified.
+			printf "${color}"
+			echo "${2}"
+			printf "${reset}"
+		fi
 	else
-		color=${1:-""} # Default to no color, if not specified.
-		printf "${color}"
 		echo "${2}"
-		printf "${reset}"
 	fi
 }
 # }}}
