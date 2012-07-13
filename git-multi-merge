@@ -5,6 +5,16 @@
 # Email: zoni@zoni.nl
 # License: Public domain
 
+help()
+{
+	echo "Usage: ${PROGRAM_NAME} [--fetch|-f] [--merge-origin|-m] [--sourcebranch|-s <branch>] [--color|--no-color] foo bar"
+	echo
+	echo "-f|--fetch            Run git fetch before starting"
+	echo "-m|--merge-origin     Merge origin/<branch> into <branch> before merging <sourcebranch> into <branch>"
+	echo "-s|--sourcebranch     Use <sourcebranch> as branch to merge rather than the currently active branch"
+	echo "--color|--no-color    Override automatic color use"
+}
+
 # {{{ Colored output
 
 # ANSI escape sequences for pretty colors
@@ -50,7 +60,7 @@ COLOR=1
 SOURCEBRANCH=
 
 # Parse arguments
-OPTS=$(getopt -n $PROGRAM_NAME --options s:fm --longoptions fetch,merge-origin,color,no-color,sourcebranch: -- "$@")
+OPTS=$(getopt -n $PROGRAM_NAME --options s:fmh --longoptions fetch,merge-origin,color,no-color,sourcebranch:,help -- "$@")
 [ $? = 0 ] || { cecho ${red} "Error parsing arguments. Try $PROGRAM_NAME --help" ; exit 1; }
 
 eval set -- "$OPTS"
@@ -76,6 +86,10 @@ while true; do
 		COLOR=0;
 		shift; continue
 	;;
+	-h|--help)
+		help
+		exit 0
+	;;
 	--)
 		# No more arguments to parse
 		shift; break
@@ -90,7 +104,7 @@ done
 if [ $# -lt 1 ]
 then
 	cecho ${red} "Error: Insufficient arguments"
-	echo "Usage: ${PROGRAM_NAME} targetbranch1 targetbranch2 targetbranchN"
+	help
 	exit 1
 fi
 
